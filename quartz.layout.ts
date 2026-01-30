@@ -1,5 +1,6 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
+import PopularTags from "./quartz/components/PopularTags"
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
@@ -38,6 +39,7 @@ export const defaultContentPageLayout: PageLayout = {
         { Component: Component.ReaderMode() },
       ],
     }),
+    PopularTags(),      // ★ これを追加
     Component.Explorer(),
   ],
   right: [
