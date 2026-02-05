@@ -1,7 +1,5 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
-// カスタムコンポーネントのインポート
-import PopularTags from "./quartz/components/PopularTags"
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
@@ -40,12 +38,6 @@ export const defaultContentPageLayout: PageLayout = {
         { Component: Component.ReaderMode() },
       ],
     }),
-    // 修正ポイント:
-    // 1. PopularTagsが設定（options）を受け取る「高階関数」として実装されている場合
-    PopularTags(), 
-    // ※ もしPopularTagsが引数不要な単純なコンポーネントなら PopularTags そのままでも動作しますが、
-    // 他のコンポーネント（Search()等）と合わせるなら PopularTags() と呼び出す形式が一般的です。
-    
     Component.Explorer(),
   ],
   right: [
@@ -53,4 +45,24 @@ export const defaultContentPageLayout: PageLayout = {
     Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
   ],
+}
+
+// components for pages that display lists of pages  (e.g. tags or folders)
+export const defaultListPageLayout: PageLayout = {
+  beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
+  left: [
+    Component.PageTitle(),
+    Component.MobileOnly(Component.Spacer()),
+    Component.Flex({
+      components: [
+        {
+          Component: Component.Search(),
+          grow: true,
+        },
+        { Component: Component.Darkmode() },
+      ],
+    }),
+    Component.Explorer(),
+  ],
+  right: [],
 }
