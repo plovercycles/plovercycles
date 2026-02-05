@@ -40,9 +40,12 @@ export const defaultContentPageLayout: PageLayout = {
         { Component: Component.ReaderMode() },
       ],
     }),
-    // 修正ポイント：もしPopularTagsが引数を取らない設計なら、
-    // そのまま渡すか、実行した結果を渡すか、定義に合わせて変更します。
+    // 修正ポイント:
+    // 1. PopularTagsが設定（options）を受け取る「高階関数」として実装されている場合
     PopularTags(), 
+    // ※ もしPopularTagsが引数不要な単純なコンポーネントなら PopularTags そのままでも動作しますが、
+    // 他のコンポーネント（Search()等）と合わせるなら PopularTags() と呼び出す形式が一般的です。
+    
     Component.Explorer(),
   ],
   right: [
@@ -51,5 +54,3 @@ export const defaultContentPageLayout: PageLayout = {
     Component.Backlinks(),
   ],
 }
-
-// ... 以降のコード
