@@ -62,7 +62,12 @@ export const defaultListPageLayout: PageLayout = {
         { Component: Component.Darkmode() },
       ],
     }),
-    Component.Explorer(),
+Component.Explorer({
+  folderClickBehavior: "collapse", // フォルダをクリックした時の挙動
+  folderDefaultState: "collapsed", // 最初は閉じておくか（"open" で展開）
+  useSavedState: true,
+  maxItems: 10, // ← ここに表示したい件数を指定してください！
+}),
   ],
   right: [],
 }
