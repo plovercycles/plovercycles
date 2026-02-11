@@ -1,12 +1,11 @@
 ---
 title: Plover Cycles
+tags:
+  - 自己紹介
 ---
 
 # ようこそ！
-ここは **Plover Cycles** のデジタルガーデン（ブログ）です。
-Obsidianで日々考えていることを公開しています。
-
-# Welcome to My Blog!
+ここは **Plover Cycles** のブログです。
 
 [自己紹介はこちら](About.md)
 

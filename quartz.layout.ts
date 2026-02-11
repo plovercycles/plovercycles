@@ -24,6 +24,16 @@ export const defaultContentPageLayout: PageLayout = {
     Component.ArticleTitle(),
     Component.ContentMeta(),
     Component.TagList(),
+    // --- ここから追加 ---
+    Component.ConditionalRender({
+      component: Component.RecentNotes({
+        title: "最近の記事",
+        limit: 5,
+        filter: (f) => f.slug !== "index" && !f.slug?.startsWith("tags/"),
+      }),
+      condition: (page) => page.fileData.slug === "index",
+    }),
+    // --- ここまで追加 ---
   ],
   left: [
     Component.PageTitle(),
