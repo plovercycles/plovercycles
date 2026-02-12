@@ -24,7 +24,9 @@ export const defaultContentPageLayout: PageLayout = {
     Component.ArticleTitle(),
     Component.ContentMeta(),
     Component.TagList(),
-    // --- ここから追加 ---
+  ],
+// afterBody を追加（または修正）
+  afterBody: [
     Component.ConditionalRender({
       component: Component.RecentNotes({
         title: "最近の記事",
@@ -33,7 +35,6 @@ export const defaultContentPageLayout: PageLayout = {
       }),
       condition: (page) => page.fileData.slug === "index",
     }),
-    // --- ここまで追加 ---
   ],
   left: [
     Component.PageTitle(),
