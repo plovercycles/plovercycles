@@ -49,7 +49,17 @@ export const defaultContentPageLayout: PageLayout = {
         { Component: Component.ReaderMode() },
       ],
     }),
-    Component.Explorer(),
+Component.Explorer({
+  sortFn: (a, b) => {
+    if (!a.file && !b.file) return a.displayName.localeCompare(b.displayName)
+    if (!a.file) return -1
+    if (!b.file) return 1
+
+    const dateA = a.file.dates?.created ?? new Date(0)
+    const dateB = b.file.dates?.created ?? new Date(0)
+    return dateB.getTime() - dateA.getTime()
+  },
+}),
   ],
   right: [
     Component.Graph(),
@@ -78,6 +88,15 @@ Component.Explorer({
   folderDefaultState: "collapsed", // 最初は閉じておくか（"open" で展開）
   useSavedState: true,
   maxItems: 10, // ← ここに表示したい件数を指定してください！
+  sortFn: (a, b) => {
+    if (!a.file && !b.file) return a.displayName.localeCompare(b.displayName)
+    if (!a.file) return -1
+    if (!b.file) return 1
+
+    const dateA = a.file.dates?.created ?? new Date(0)
+    const dateB = b.file.dates?.created ?? new Date(0)
+    return dateB.getTime() - dateA.getTime()
+  },
 }),
   ],
   right: [],
