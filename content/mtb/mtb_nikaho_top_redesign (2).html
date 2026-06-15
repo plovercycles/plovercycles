@@ -1,0 +1,229 @@
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Noto Sans JP', 'Hiragino Sans', sans-serif; }
+
+.site { background: #0a0a0a; color: #fff; min-height: 100vh; }
+
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(10,10,10,0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 0 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 60px;
+}
+.nav-logo { font-size: 13px; font-weight: 500; letter-spacing: 0.05em; color: #fff; }
+.nav-logo span { color: #5BAD6F; }
+.nav-links { display: flex; gap: 1.5rem; list-style: none; }
+.nav-links a { font-size: 12px; color: rgba(255,255,255,0.6); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
+.nav-links a:hover { color: #fff; }
+.nav-cta { background: #5BAD6F; color: #fff; font-size: 12px; padding: 7px 16px; border-radius: 4px; text-decoration: none; font-weight: 500; }
+
+.hero {
+  position: relative; height: 520px; overflow: hidden; display: flex; align-items: flex-end;
+}
+.hero-slides { position: absolute; inset: 0; }
+.hero-slide {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  opacity: 0; transition: opacity 1.2s ease;
+}
+.hero-slide.active { opacity: 1; }
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%);
+}
+.hero-content { position: relative; z-index: 2; padding: 2.5rem; width: 100%; }
+.hero-tag {
+  display: inline-block; font-size: 10px; letter-spacing: 0.15em; color: #5BAD6F;
+  border: 1px solid #5BAD6F; padding: 3px 10px; border-radius: 2px;
+  margin-bottom: 0.75rem; text-transform: uppercase;
+}
+.hero h1 { font-size: clamp(24px, 5vw, 40px); font-weight: 700; line-height: 1.2; margin-bottom: 0.75rem; }
+.hero-sub { font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 1.5rem; }
+.hero-btns { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.btn-primary { background: #5BAD6F; color: #fff; padding: 10px 24px; border-radius: 4px; font-size: 13px; font-weight: 500; text-decoration: none; display: inline-block; }
+.btn-outline { border: 1px solid rgba(255,255,255,0.3); color: #fff; padding: 10px 24px; border-radius: 4px; font-size: 13px; text-decoration: none; display: inline-block; }
+.hero-dots { position: absolute; bottom: 1.25rem; right: 2rem; z-index: 3; display: flex; gap: 6px; }
+.dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.3); cursor: pointer; transition: background 0.3s; }
+.dot.active { background: #5BAD6F; }
+
+.info-bar { background: #5BAD6F; display: grid; grid-template-columns: repeat(3, 1fr); }
+.info-item { padding: 1rem 1.5rem; border-right: 1px solid rgba(255,255,255,0.2); text-align: center; }
+.info-item:last-child { border-right: none; }
+.info-label { font-size: 10px; letter-spacing: 0.1em; opacity: 0.8; margin-bottom: 2px; }
+.info-value { font-size: 15px; font-weight: 700; }
+
+.section { padding: 3rem 2rem; }
+.section-label { font-size: 10px; letter-spacing: 0.15em; color: #5BAD6F; text-transform: uppercase; margin-bottom: 0.5rem; }
+.section h2 { font-size: 20px; font-weight: 700; margin-bottom: 0.5rem; }
+.section-sub { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 2rem; line-height: 1.7; }
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 200px 200px;
+  gap: 4px;
+}
+.photo-cell { overflow: hidden; cursor: pointer; position: relative; }
+.photo-cell img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; display: block; }
+.photo-cell:hover img { transform: scale(1.06); }
+
+.features { background: #111; padding: 3rem 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.feat-card { padding: 1.25rem; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; }
+.feat-icon { width: 36px; height: 36px; border-radius: 6px; background: rgba(91,173,111,0.15); display: flex; align-items: center; justify-content: center; margin-bottom: 0.75rem; font-size: 18px; }
+.feat-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 0.4rem; }
+.feat-card p { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+.about-section { padding: 3rem 2rem; background: #0d0d0d; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+.about-img { aspect-ratio: 4/3; overflow: hidden; border-radius: 8px; }
+.about-img img { width: 100%; height: 100%; object-fit: cover; }
+.about-text { padding-top: 0.5rem; }
+.about-text h2 { font-size: 18px; font-weight: 700; margin-bottom: 0.75rem; line-height: 1.4; }
+.about-text p { font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.8; margin-bottom: 1rem; }
+
+.course-map-section { padding: 2rem; background: #111; text-align: center; }
+.course-map-img { width: 100%; max-width: 600px; margin: 1rem auto 0; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+.course-map-img img { width: 100%; display: block; }
+
+.menu-grid { padding: 2rem; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+.menu-card { background: #111; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 1.25rem 1rem; display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: #fff; transition: border-color 0.2s, background 0.2s; }
+.menu-card:hover { border-color: #5BAD6F; background: rgba(91,173,111,0.05); }
+.menu-icon { font-size: 22px; flex-shrink: 0; }
+.menu-card span { font-size: 13px; font-weight: 500; }
+.menu-arrow { margin-left: auto; font-size: 16px; color: rgba(255,255,255,0.3); }
+
+footer { background: #000; padding: 2rem; border-top: 1px solid rgba(255,255,255,0.08); text-align: center; }
+footer p { font-size: 11px; color: rgba(255,255,255,0.35); line-height: 1.8; }
+.footer-logo { font-size: 13px; font-weight: 600; color: #5BAD6F; margin-bottom: 0.75rem; }
+
+.lightbox { display: none; position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; }
+.lightbox.open { display: flex; }
+.lightbox img { max-width: 95vw; max-height: 90vh; object-fit: contain; border-radius: 4px; }
+.lb-close { position: fixed; top: 1rem; right: 1rem; background: none; border: 1px solid rgba(255,255,255,0.3); color: #fff; width: 36px; height: 36px; border-radius: 50%; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+</style>
+
+<div class="site">
+
+<nav>
+  <div class="nav-logo">鳥海山麓<span>MTB</span>サイクリング</div>
+  <ul class="nav-links">
+    <li><a href="https://mtb.nikaho.org/news.html">新着</a></li>
+    <li><a href="https://mtb.nikaho.org/youkou.html">大会要項</a></li>
+    <li><a href="https://mtb.nikaho.org/hotel.html">宿泊</a></li>
+    <li><a href="https://mtb.nikaho.org/contact.html">問い合わせ</a></li>
+  </ul>
+  <a href="https://mtb.nikaho.org/appli.html" class="nav-cta">大会申込 →</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-slides" id="slides">
+    <div class="hero-slide active" style="background-image:url('https://mtb.nikaho.org/photo/img/03.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('https://mtb.nikaho.org/photo/img/08.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('https://mtb.nikaho.org/photo/img/15.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('https://mtb.nikaho.org/photo/img/22.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('https://mtb.nikaho.org/photo/img/31.jpg')"></div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">秋田県にかほ市</div>
+    <h1>日本百名山<br>鳥海山麓を駆ける</h1>
+    <p class="hero-sub">オフロードの周回コース — 初心者からベテランまで</p>
+    <div class="hero-btns">
+      <a href="https://mtb.nikaho.org/appli.html" class="btn-primary">大会に申込む</a>
+      <a href="https://mtb.nikaho.org/youkou.html" class="btn-outline">大会要項を見る</a>
+    </div>
+  </div>
+  <div class="hero-dots" id="dots">
+    <div class="dot active" onclick="goSlide(0)"></div>
+    <div class="dot" onclick="goSlide(1)"></div>
+    <div class="dot" onclick="goSlide(2)"></div>
+    <div class="dot" onclick="goSlide(3)"></div>
+    <div class="dot" onclick="goSlide(4)"></div>
+  </div>
+</div>
+
+<div class="info-bar">
+  <div class="info-item"><div class="info-label">開催地</div><div class="info-value">にかほ市 象潟</div></div>
+  <div class="info-item"><div class="info-label">対象</div><div class="info-value">全レベル歓迎</div></div>
+  <div class="info-item"><div class="info-label">運営</div><div class="info-value">ボランティア</div></div>
+</div>
+
+<div class="section">
+  <div class="section-label">Course Photos</div>
+  <h2>コースの風景</h2>
+  <p class="section-sub">里山の自然を感じながら走る、本物のオフロードコース。</p>
+  <div class="photo-grid">
+    <div class="photo-cell"><img src="https://mtb.nikaho.org/photo/img/05.jpg" alt="コース写真" loading="lazy" onclick="openLB(this.src)"></div>
+    <div class="photo-cell"><img src="https://mtb.nikaho.org/photo/img/12.jpg" alt="コース写真" loading="lazy" onclick="openLB(this.src)"></div>
+    <div class="photo-cell"><img src="https://mtb.nikaho.org/photo/img/24.jpg" alt="コース写真" loading="lazy" onclick="openLB(this.src)"></div>
+    <div class="photo-cell"><img src="https://mtb.nikaho.org/photo/img/38.jpg" alt="コース写真" loading="lazy" onclick="openLB(this.src)"></div>
+  </div>
+</div>
+
+<div class="features">
+  <div class="feat-card"><div class="feat-icon">🌿</div><h3>自然の中のコース</h3><p>鳥海山麓の豊かな自然を縫うダートコース。山の空気と土の匂いを全身で感じる。</p></div>
+  <div class="feat-card"><div class="feat-icon">👨‍👩‍👧</div><h3>ファミリー歓迎</h3><p>初心者・親子連れも安心。タイムや順位にとらわれず、自分のペースで楽しめる。</p></div>
+  <div class="feat-card"><div class="feat-icon">🤝</div><h3>ボランティア運営</h3><p>MTB愛好会による非営利の手作りイベント。参加者とボランティアの温かい交流が魅力。</p></div>
+  <div class="feat-card"><div class="feat-icon">👀</div><h3>観戦も大歓迎</h3><p>ライダーでなくても楽しめる。仲間の応援に、家族の観戦に、フィールドへ来てください。</p></div>
+</div>
+
+<div class="about-section">
+  <div class="about-img"><img src="https://mtb.nikaho.org/photo/img/01.jpg" alt="コース風景" loading="lazy"></div>
+  <div class="about-text">
+    <div class="section-label">About</div>
+    <h2>鳥海山MTB愛好会が<br>つなぐ、山の記憶</h2>
+    <p>当大会は過去開催の「鳥海山グルっと一周MTBサイクリング」の継続を目指し、鳥海山麓の自然を堪能していただき、参加選手とボランティアの交流を図ることを目的としています。</p>
+    <p>利益を追求しない、純粋な山遊びの場です。ダートに挑戦したい初心者、自然の中で遊びたいみんなが主役。</p>
+    <a href="https://mtb.nikaho.org/youkou.html" class="btn-primary" style="font-size:13px;">大会要項を確認する →</a>
+  </div>
+</div>
+
+<div class="course-map-section">
+  <div class="section-label">Course Map</div>
+  <h2 style="font-size:18px; font-weight:700; margin-bottom:0.25rem;">コースマップ</h2>
+  <p style="font-size:12px; color:rgba(255,255,255,0.45); margin-bottom:0;">2025年度コース</p>
+  <div class="course-map-img"><img src="https://mtb.nikaho.org/user/webdir/3/2025map.jpg" alt="2025コースマップ" loading="lazy"></div>
+</div>
+
+<div style="padding: 1.5rem 2rem 0;">
+  <div class="section-label">Site Menu</div>
+  <h2 style="font-size:18px; font-weight:700; margin-bottom:1.25rem;">メニュー</h2>
+</div>
+<div class="menu-grid">
+  <a href="https://mtb.nikaho.org/news.html" class="menu-card"><span class="menu-icon">📢</span><span>新着情報</span><span class="menu-arrow">›</span></a>
+  <a href="https://mtb.nikaho.org/youkou.html" class="menu-card"><span class="menu-icon">📋</span><span>大会要項</span><span class="menu-arrow">›</span></a>
+  <a href="https://mtb.nikaho.org/appli.html" class="menu-card"><span class="menu-icon">✏️</span><span>大会申込</span><span class="menu-arrow">›</span></a>
+  <a href="https://mtb.nikaho.org/mo2.html" class="menu-card"><span class="menu-icon">📝</span><span>登録者一覧</span><span class="menu-arrow">›</span></a>
+  <a href="https://mtb.nikaho.org/hotel.html" class="menu-card"><span class="menu-icon">🏨</span><span>宿泊先一覧</span><span class="menu-arrow">›</span></a>
+  <a href="https://mtb.nikaho.org/contact.html" class="menu-card"><span class="menu-icon">✉️</span><span>お問い合わせ</span><span class="menu-arrow">›</span></a>
+</div>
+
+<footer>
+  <div class="footer-logo">鳥海山麓MTBサイクリング</div>
+  <p>〒018-0109 にかほ市象潟町字冠石下四番地<br>鳥海山麓MTBサイクリング実行委員会 　実行委員長 佐々木<br>Eメール：staff@nikaho.org<br><br>Copyright &copy; 鳥海山麓MTBサイクリング All Rights Reserved.</p>
+</footer>
+
+</div>
+
+<div class="lightbox" id="lightbox" onclick="closeLB()">
+  <button class="lb-close" onclick="closeLB()">✕</button>
+  <img id="lbImg" src="" alt="">
+</div>
+
+<script>
+function openLB(src) { document.getElementById('lbImg').src = src; document.getElementById('lightbox').classList.add('open'); }
+function closeLB() { document.getElementById('lightbox').classList.remove('open'); }
+
+let cur = 0;
+const slides = document.querySelectorAll('.hero-slide');
+const dots = document.querySelectorAll('.dot');
+function goSlide(n) {
+  slides[cur].classList.remove('active'); dots[cur].classList.remove('active');
+  cur = n;
+  slides[cur].classList.add('active'); dots[cur].classList.add('active');
+}
+setInterval(() => goSlide((cur + 1) % slides.length), 4000);
+</script>
