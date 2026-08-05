@@ -13,6 +13,7 @@ tags:
 https://script.google.com/macros/s/AKfycbxfOcWYkAiWWAeWv6aBkKJsiFEG9u2JqRRE3qG5C0_FYZnyEvbXq_li0Ml6M3trlEcw/exec
 
 
+
 コード類は全てGithubに置いてあります。    
 - 仕様書をREADME化しコードが複雑化した際のバグ/ループを防ぐ
 - 複数のLLMからコードを参照、デバッグできる  
